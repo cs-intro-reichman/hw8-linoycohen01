@@ -45,7 +45,7 @@
     public boolean follows(String name) {
         if (name == null) return false;
         for (int i = 0; i < follows.length; i++){
-            if (this.follows[i].toLowerCase().equals(name.toLowerCase())){
+            if (name.equals(follows[i])){
                 return true;
             }
         }
