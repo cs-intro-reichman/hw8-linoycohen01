@@ -21,13 +21,17 @@ public class Network {
         users[2] = new User("Baz");
         userCount = 3;
     }
+    public int getUserCount(){
+        return this.userCount;
+    }
 
     /** Finds in this network, and returns, the user that has the given name.
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
+        String name1= name.toLowerCase();
         for (int i = 0; i < userCount; i++) {
-            if (name.equals(this.users[i].getName())){
+            if (name1.equals(this.users[i].getName().toLowerCase())){
                 return users[i];
             }
         }
@@ -39,6 +43,9 @@ public class Network {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
+        if (name==null){
+            return false;
+        }
         if (this.getUser(name)!=null){
             return false;
         }
@@ -56,15 +63,15 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if (getUser(name1)==null){
-            return false;
-        }
-        if (getUser(name2)==null){
+        if (name1==null || name2==null || getUser(name2)==null || getUser(name1)==null || name1.equals(name2)){
             return false;
         }
         User user1= getUser(name1);
+        if (user1.follows(name2)){
+            return false;
+        }
         user1.addFollowee(name2);
-        return false;
+        return true;
     }
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
@@ -98,6 +105,9 @@ public class Network {
         //// Replace the following statement with your code
         int userIndex=-1;
         int countFollows=-1;
+        if (userCount==0){
+            return null;
+        }
         for (int i = 0; i < userCount; i++) {
             int followers = followeeCount(users[i].getName());
             if (followers>countFollows){
@@ -124,9 +134,13 @@ public class Network {
     public String toString() {
        //// Replace the following statement with your code
        String str= "Network:\n";
-       for (int i = 0; i < userCount; i++) {
+       if (userCount==0){
+        return "Network:";
+       }
+       for (int i = 0; i < userCount-1; i++) {
            str += users[i].toString() + "\n";
        }
+       str += users[userCount-1];
        return str;
     }
 }
