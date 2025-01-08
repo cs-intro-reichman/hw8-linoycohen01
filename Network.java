@@ -126,9 +126,10 @@ public class Network {
     public String toString() {
         //// Replace the following statement with your code
         String str= "Network:\n";
-        for (int i = 0; i < userCount; i++) {
+        for (int i = 0; i < userCount - 1; i++) {
             str += users[i].toString() + "\n";
         }
+        str +=users[userCount];
         return str;
      }
 }
