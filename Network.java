@@ -29,7 +29,7 @@ public class Network {
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
-        String name1= name.toLowerCase();
+        String name1 = name.toLowerCase();
         for (int i = 0; i < userCount; i++) {
             if (name1.equals(this.users[i].getName().toLowerCase())){
                 return users[i];
@@ -43,15 +43,15 @@ public class Network {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
-        if (name==null){
+        if (name == null){
             return false;
         }
-        if (this.getUser(name)!=null){
+        if (this.getUser(name) != null){
             return false;
         }
         for (int i = 0; i < users.length; i++) {
-            if (users[i]==null){
-                users[i]= new User(name);
+            if (users[i] == null){
+                users[i] = new User(name);
                 userCount++;
                 return true;
             }
@@ -63,10 +63,11 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if (name1==null || name2==null || getUser(name2)==null || getUser(name1)==null || name1.equals(name2)){
+        if (name1 == null || name2 == null || getUser(name2) == null 
+                    || getUser(name1) == null || name1.equals(name2)){
             return false;
         }
-        User user1= getUser(name1);
+        User user1 = getUser(name1);
         if (user1.follows(name2)){
             return false;
         }
@@ -103,19 +104,19 @@ public class Network {
      *  The user who appears the most in the follow lists of all the users. */
     public String mostPopularUser() {
         //// Replace the following statement with your code
-        int userIndex=-1;
-        int countFollows=-1;
-        if (userCount==0){
+        int userPop = -1;
+        int countF = -1;
+        if (userCount == 0){
             return null;
         }
         for (int i = 0; i < userCount; i++) {
             int followers = followeeCount(users[i].getName());
-            if (followers>countFollows){
-                userIndex=i;
-                countFollows = followers;
+            if (followers > countF){
+                userPop=i;
+                countF = followers;
             }
         }
-        return users[userIndex].getName();
+        return users[userPop].getName();
     }
 
     /** Returns the number of times that the given name appears in the follows lists of all
@@ -133,14 +134,14 @@ public class Network {
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
        //// Replace the following statement with your code
-       String str= "Network:\n";
-       if (userCount==0){
+       String ans= "Network:\n";
+       if (userCount == 0){
         return "Network:";
        }
        for (int i = 0; i < userCount-1; i++) {
-           str += users[i].toString() + "\n";
+           ans += users[i].toString() + "\n";
        }
-       str += users[userCount-1];
-       return str;
+       ans += users[userCount - 1];
+       return ans;
     }
 }
