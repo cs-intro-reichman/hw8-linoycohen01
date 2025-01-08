@@ -302,15 +302,25 @@ public class TestHandler {
     }
 
     public boolean addFolloweeTest5(){
+
         User alice = new User("Alice");
+
         String expected = "true";
+
         String actual = "";
+
         try {
+
             actual += (alice.addFollowee("Foo") && !alice.addFollowee("foo") && alice.getfCount() == 1 && alice.follows("Foo"));
+
         } catch (Exception e) {
+
             actual = TesterMessagesEnum.ERROR + e.getMessage();
+
         }
+
         return this.tester.test("Alice, getting started = false, try to add Followee Foo and foo", expected, actual);
+
     }
 
     // Improved removeFollowee Tests
@@ -1451,6 +1461,7 @@ public class TestHandler {
         }
         return this.tester.test("Network with added users and follow relationships", expected, actual);
     }
+    
 
     public void conclusion() {
         this.tester.conclusion();
@@ -1495,4 +1506,5 @@ public class TestHandler {
                 System.out.println("Invalid Question");
         }
     }
+    
 }
