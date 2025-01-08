@@ -53,9 +53,17 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if(getUser(name1) == null || getUser(name2) == null) return false;
-        return getUser(name1).addFollowee(name2);
+        if (getUser(name1)==null){
+            return false;
+        }
+        if (getUser(name2)==null){
+            return false;
+        }
+        User user1= getUser(name1);
+        user1.addFollowee(name2);
+        return false;
     }
+    
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
@@ -75,7 +83,7 @@ public class Network {
 
     /** Computes and returns the name of the most popular user in this network: 
      *  The user who appears the most in the follow lists of all the users. */
-    public String mostPopularUser() {
+   /*  public String mostPopularUser() {
        int max = 0;
        String popular = "";
        for (int i = 0; i < userCount; i++){
@@ -86,6 +94,19 @@ public class Network {
         }
        }
         return popular;
+    }*/
+    public String mostPopularUser() {
+        //// Replace the following statement with your code
+        int userIndex=-1;
+        int countFollows=-1;
+        for (int i = 0; i < userCount; i++) {
+            int followers = followeeCount(users[i].getName());
+            if (followers>countFollows){
+                userIndex=i;
+                countFollows = followers;
+            }
+        }
+        return users[userIndex].getName();
     }
 
     /** Returns the number of times that the given name appears in the follows lists of all
@@ -103,10 +124,11 @@ public class Network {
 
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
-        String ans = "Network:\n";
-       for (int i = 0; i < userCount; i++){
-        ans += users[i].toString() + "\n";
-       }
-       return ans;
-    }
+        //// Replace the following statement with your code
+        String str= "Network:\n";
+        for (int i = 0; i < userCount; i++) {
+            str += users[i].toString() + "\n";
+        }
+        return str;
+     }
 }
