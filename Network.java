@@ -43,12 +43,8 @@ public class Network {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
-        if (name == null){
-            return false;
-        }
-        if (this.getUser(name) != null){
-            return false;
-        }
+        if (name == null) return false;
+        if (this.getUser(name) != null) return false;
         for (int i = 0; i < users.length; i++) {
             if (users[i] == null){
                 users[i] = new User(name);
@@ -68,11 +64,10 @@ public class Network {
                     || getUser(name1) == null || name1.equals(name2)){
             return false;
         }
-        User user1 = getUser(name1);
-        if (user1.follows(name2)){
+        if (getUser(name1).follows(name2)){
             return false;
         }
-        user1.addFollowee(name2);
+        getUser(name1).addFollowee(name2);
         return true;
     }
     
@@ -99,13 +94,11 @@ public class Network {
         //// Replace the following statement with your code
         int userPop = -1;
         int countF = -1;
-        if (userCount == 0){
-            return null;
-        }
+        if (userCount == 0) return null;
         for (int i = 0; i < userCount; i++) {
             int followers = followeeCount(users[i].getName());
             if (followers > countF){
-                userPop=i;
+                userPop = i;
                 countF = followers;
             }
         }
